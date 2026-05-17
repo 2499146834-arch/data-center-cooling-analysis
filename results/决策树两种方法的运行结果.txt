@@ -1,0 +1,393 @@
+方法1：训练集训练 + 独立测试集评估的运行结果为：
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 2
+Relation:     cold_source_control_dataset1-weka.filters.unsupervised.attribute.Remove-R1-weka.filters.unsupervised.attribute.Remove-R11-weka.filters.unsupervised.attribute.Remove-R8-weka.filters.unsupervised.attribute.Discretize-F-B3-M-1.0-R1-8-precision6-weka.filters.unsupervised.instance.RemovePercentage-P80.0
+Instances:    700
+Attributes:   9
+              Server_Workload(%)
+              Inlet_Temperature(Â°C)
+              Outlet_Temperature(Â°C)
+              Ambient_Temperature(Â°C)
+              Cooling_Unit_Power_Consumption(kW)
+              Chiller_Usage(%)
+              AHU_Usage(%)
+              Temperature_Deviation(Â°C)
+              Cooling_Strategy_Action
+Test mode:    user supplied test set:  size unknown (reading incrementally)
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+Chiller_Usage(%) = '(-inf-56.318195]'
+|   Cooling_Unit_Power_Consumption(kW) = '(-inf-0.685]'
+|   |   Inlet_Temperature(Â°C) = '(-inf-20.600247]'
+|   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]'
+|   |   |   |   AHU_Usage(%) = '(-inf-45.233342]'
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Boost All (9.0/6.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Reduce AHU (10.0/5.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   |   |   |   Server_Workload(%) = '(-inf-56.370906]': Boost All (22.0/15.0)
+|   |   |   |   |   |   Server_Workload(%) = '(56.370906-74.470491]': Eco Mode (2.0/1.0)
+|   |   |   |   |   |   Server_Workload(%) = '(74.470491-inf)': Boost All (0.0)
+|   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]'
+|   |   |   |   |   Ambient_Temperature(Â°C) = '(-inf-22.725951]': Reduce AHU (7.0/4.0)
+|   |   |   |   |   Ambient_Temperature(Â°C) = '(22.725951-25.236509]': Boost All (26.0/17.0)
+|   |   |   |   |   Ambient_Temperature(Â°C) = '(25.236509-inf)': Increase Chiller (10.0/5.0)
+|   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Reduce AHU (35.0/23.0)
+|   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]'
+|   |   |   |   Ambient_Temperature(Â°C) = '(-inf-22.725951]': Eco Mode (12.0/8.0)
+|   |   |   |   Ambient_Temperature(Â°C) = '(22.725951-25.236509]'
+|   |   |   |   |   AHU_Usage(%) = '(-inf-45.233342]': Reduce AHU (4.0/1.0)
+|   |   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Boost All (5.0/3.0)
+|   |   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Eco Mode (6.0/3.0)
+|   |   |   |   Ambient_Temperature(Â°C) = '(25.236509-inf)'
+|   |   |   |   |   AHU_Usage(%) = '(-inf-45.233342]': Reduce AHU (0.0)
+|   |   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Maintain (3.0/1.0)
+|   |   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Reduce AHU (8.0/4.0)
+|   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Reduce AHU (6.0/4.0)
+|   |   Inlet_Temperature(Â°C) = '(20.600247-22.497571]'
+|   |   |   AHU_Usage(%) = '(-inf-45.233342]': Maintain (21.0/13.0)
+|   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Reduce AHU (15.0/10.0)
+|   |   |   AHU_Usage(%) = '(50.776129-inf)'
+|   |   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Reduce AHU (2.0/1.0)
+|   |   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Reduce AHU (3.0/1.0)
+|   |   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)': Boost All (4.0/1.0)
+|   |   Inlet_Temperature(Â°C) = '(22.497571-inf)': Reduce AHU (3.0/1.0)
+|   Cooling_Unit_Power_Consumption(kW) = '(0.685-0.835]'
+|   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Increase Chiller (8.0/5.0)
+|   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]'
+|   |   |   Server_Workload(%) = '(-inf-56.370906]': Maintain (6.0/3.0)
+|   |   |   Server_Workload(%) = '(56.370906-74.470491]': Boost All (2.0)
+|   |   |   Server_Workload(%) = '(74.470491-inf)': Boost All (0.0)
+|   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Reduce AHU (3.0/1.0)
+|   Cooling_Unit_Power_Consumption(kW) = '(0.835-inf)': Reduce AHU (0.0)
+Chiller_Usage(%) = '(56.318195-74.858838]'
+|   Cooling_Unit_Power_Consumption(kW) = '(-inf-0.685]'
+|   |   Temperature_Deviation(Â°C) = '(-inf-1.255]'
+|   |   |   AHU_Usage(%) = '(-inf-45.233342]': Eco Mode (2.0)
+|   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Boost All (2.0)
+|   |   |   AHU_Usage(%) = '(50.776129-inf)': Eco Mode (0.0)
+|   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Boost All (1.0)
+|   |   Temperature_Deviation(Â°C) = '(2.795-inf)': Maintain (9.0/5.0)
+|   Cooling_Unit_Power_Consumption(kW) = '(0.685-0.835]'
+|   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Boost All (72.0/45.0)
+|   |   Temperature_Deviation(Â°C) = '(1.255-2.795]'
+|   |   |   Ambient_Temperature(Â°C) = '(-inf-22.725951]'
+|   |   |   |   Server_Workload(%) = '(-inf-56.370906]': Eco Mode (3.0/1.0)
+|   |   |   |   Server_Workload(%) = '(56.370906-74.470491]'
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Reduce AHU (4.0/2.0)
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Boost All (10.0/4.0)
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)'
+|   |   |   |   |   |   AHU_Usage(%) = '(-inf-45.233342]': Boost All (8.0/5.0)
+|   |   |   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Reduce AHU (3.0/1.0)
+|   |   |   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Reduce AHU (0.0)
+|   |   |   |   Server_Workload(%) = '(74.470491-inf)'
+|   |   |   |   |   AHU_Usage(%) = '(-inf-45.233342]': Increase Chiller (5.0/2.0)
+|   |   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Eco Mode (3.0)
+|   |   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Eco Mode (0.0)
+|   |   |   Ambient_Temperature(Â°C) = '(22.725951-25.236509]': Reduce AHU (1.0)
+|   |   |   Ambient_Temperature(Â°C) = '(25.236509-inf)'
+|   |   |   |   Inlet_Temperature(Â°C) = '(-inf-20.600247]': Maintain (10.0/5.0)
+|   |   |   |   Inlet_Temperature(Â°C) = '(20.600247-22.497571]'
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Boost All (5.0/2.0)
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Eco Mode (8.0/5.0)
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Eco Mode (3.0/1.0)
+|   |   |   |   Inlet_Temperature(Â°C) = '(22.497571-inf)': Boost All (6.0/4.0)
+|   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   AHU_Usage(%) = '(-inf-45.233342]': Eco Mode (23.0/16.0)
+|   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Eco Mode (4.0/2.0)
+|   |   |   AHU_Usage(%) = '(50.776129-inf)': Reduce AHU (30.0/20.0)
+|   Cooling_Unit_Power_Consumption(kW) = '(0.835-inf)'
+|   |   Temperature_Deviation(Â°C) = '(-inf-1.255]'
+|   |   |   Server_Workload(%) = '(-inf-56.370906]': Reduce AHU (0.0)
+|   |   |   Server_Workload(%) = '(56.370906-74.470491]': Reduce AHU (2.0/1.0)
+|   |   |   Server_Workload(%) = '(74.470491-inf)': Boost All (4.0/2.0)
+|   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Increase Chiller (8.0/4.0)
+|   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   Inlet_Temperature(Â°C) = '(-inf-20.600247]': Reduce AHU (0.0)
+|   |   |   Inlet_Temperature(Â°C) = '(20.600247-22.497571]': Reduce AHU (5.0/2.0)
+|   |   |   Inlet_Temperature(Â°C) = '(22.497571-inf)': Eco Mode (2.0/1.0)
+Chiller_Usage(%) = '(74.858838-inf)'
+|   Inlet_Temperature(Â°C) = '(-inf-20.600247]': Eco Mode (2.0/1.0)
+|   Inlet_Temperature(Â°C) = '(20.600247-22.497571]'
+|   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Reduce AHU (7.0/4.0)
+|   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Eco Mode (25.0/15.0)
+|   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Increase Chiller (3.0)
+|   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Eco Mode (10.0/6.0)
+|   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Boost All (4.0/2.0)
+|   Inlet_Temperature(Â°C) = '(22.497571-inf)'
+|   |   AHU_Usage(%) = '(-inf-45.233342]'
+|   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]'
+|   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Eco Mode (0.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Maintain (4.0/1.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Eco Mode (14.0/8.0)
+|   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Eco Mode (17.0/10.0)
+|   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   |   Cooling_Unit_Power_Consumption(kW) = '(-inf-0.685]': Increase Chiller (0.0)
+|   |   |   |   Cooling_Unit_Power_Consumption(kW) = '(0.685-0.835]': Eco Mode (7.0/4.0)
+|   |   |   |   Cooling_Unit_Power_Consumption(kW) = '(0.835-inf)': Increase Chiller (25.0/15.0)
+|   |   AHU_Usage(%) = '(45.233342-50.776129]': Maintain (54.0/34.0)
+|   |   AHU_Usage(%) = '(50.776129-inf)'
+|   |   |   Ambient_Temperature(Â°C) = '(-inf-22.725951]': Boost All (0.0)
+|   |   |   Ambient_Temperature(Â°C) = '(22.725951-25.236509]'
+|   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Maintain (0.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Reduce AHU (2.0/1.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Maintain (8.0/4.0)
+|   |   |   Ambient_Temperature(Â°C) = '(25.236509-inf)'
+|   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Boost All (3.0/1.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]'
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Boost All (0.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Maintain (9.0/6.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)': Boost All (5.0/2.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)'
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Increase Chiller (1.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Boost All (14.0/8.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)': Eco Mode (21.0/14.0)
+
+Number of Leaves  : 	85
+
+Size of the tree : 	127
+
+
+Time taken to build model: 0.02 seconds
+
+=== Evaluation on test set ===
+
+Time taken to test model on supplied test set: 0.02 seconds
+
+=== Summary ===
+
+Correctly Classified Instances         149               21.2857 %
+Incorrectly Classified Instances       551               78.7143 %
+Kappa statistic                          0.0161
+Mean absolute error                      0.3223
+Root mean squared error                  0.4305
+Relative absolute error                100.7301 %
+Root relative squared error            107.5629 %
+Total Number of Instances              700     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.243    0.248    0.191      0.243    0.214      -0.005   0.470     0.185     Reduce AHU
+                 0.235    0.207    0.242      0.235    0.238      0.029    0.493     0.219     Eco Mode
+                 0.268    0.274    0.194      0.268    0.225      -0.005   0.478     0.191     Boost All
+                 0.226    0.169    0.238      0.226    0.232      0.057    0.512     0.206     Maintain
+                 0.093    0.086    0.213      0.093    0.129      0.010    0.446     0.186     Increase Chiller
+Weighted Avg.    0.213    0.197    0.216      0.213    0.208      0.017    0.480     0.198     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e   <-- classified as
+ 33 30 34 22 17 |  a = Reduce AHU
+ 42 36 43 21 11 |  b = Eco Mode
+ 29 35 37 27 10 |  c = Boost All
+ 32 23 38 30 10 |  d = Maintain
+ 37 25 39 26 13 |  e = Increase Chiller
+分析并进行性能评估
+
+
+
+
+
+
+
+方法2：交叉检验结果为：
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 2
+Relation:     cold_source_control_dataset1-weka.filters.unsupervised.attribute.Remove-R1-weka.filters.unsupervised.attribute.Remove-R11-weka.filters.unsupervised.attribute.Remove-R8-weka.filters.unsupervised.attribute.Discretize-F-B3-M-1.0-R1-8-precision6-weka.filters.unsupervised.instance.RemovePercentage-P80.0
+Instances:    700
+Attributes:   9
+              Server_Workload(%)
+              Inlet_Temperature(Â°C)
+              Outlet_Temperature(Â°C)
+              Ambient_Temperature(Â°C)
+              Cooling_Unit_Power_Consumption(kW)
+              Chiller_Usage(%)
+              AHU_Usage(%)
+              Temperature_Deviation(Â°C)
+              Cooling_Strategy_Action
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+Chiller_Usage(%) = '(-inf-56.318195]'
+|   Cooling_Unit_Power_Consumption(kW) = '(-inf-0.685]'
+|   |   Inlet_Temperature(Â°C) = '(-inf-20.600247]'
+|   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]'
+|   |   |   |   AHU_Usage(%) = '(-inf-45.233342]'
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Boost All (9.0/6.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Reduce AHU (10.0/5.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   |   |   |   Server_Workload(%) = '(-inf-56.370906]': Boost All (22.0/15.0)
+|   |   |   |   |   |   Server_Workload(%) = '(56.370906-74.470491]': Eco Mode (2.0/1.0)
+|   |   |   |   |   |   Server_Workload(%) = '(74.470491-inf)': Boost All (0.0)
+|   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]'
+|   |   |   |   |   Ambient_Temperature(Â°C) = '(-inf-22.725951]': Reduce AHU (7.0/4.0)
+|   |   |   |   |   Ambient_Temperature(Â°C) = '(22.725951-25.236509]': Boost All (26.0/17.0)
+|   |   |   |   |   Ambient_Temperature(Â°C) = '(25.236509-inf)': Increase Chiller (10.0/5.0)
+|   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Reduce AHU (35.0/23.0)
+|   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]'
+|   |   |   |   Ambient_Temperature(Â°C) = '(-inf-22.725951]': Eco Mode (12.0/8.0)
+|   |   |   |   Ambient_Temperature(Â°C) = '(22.725951-25.236509]'
+|   |   |   |   |   AHU_Usage(%) = '(-inf-45.233342]': Reduce AHU (4.0/1.0)
+|   |   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Boost All (5.0/3.0)
+|   |   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Eco Mode (6.0/3.0)
+|   |   |   |   Ambient_Temperature(Â°C) = '(25.236509-inf)'
+|   |   |   |   |   AHU_Usage(%) = '(-inf-45.233342]': Reduce AHU (0.0)
+|   |   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Maintain (3.0/1.0)
+|   |   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Reduce AHU (8.0/4.0)
+|   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Reduce AHU (6.0/4.0)
+|   |   Inlet_Temperature(Â°C) = '(20.600247-22.497571]'
+|   |   |   AHU_Usage(%) = '(-inf-45.233342]': Maintain (21.0/13.0)
+|   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Reduce AHU (15.0/10.0)
+|   |   |   AHU_Usage(%) = '(50.776129-inf)'
+|   |   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Reduce AHU (2.0/1.0)
+|   |   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Reduce AHU (3.0/1.0)
+|   |   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)': Boost All (4.0/1.0)
+|   |   Inlet_Temperature(Â°C) = '(22.497571-inf)': Reduce AHU (3.0/1.0)
+|   Cooling_Unit_Power_Consumption(kW) = '(0.685-0.835]'
+|   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Increase Chiller (8.0/5.0)
+|   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]'
+|   |   |   Server_Workload(%) = '(-inf-56.370906]': Maintain (6.0/3.0)
+|   |   |   Server_Workload(%) = '(56.370906-74.470491]': Boost All (2.0)
+|   |   |   Server_Workload(%) = '(74.470491-inf)': Boost All (0.0)
+|   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Reduce AHU (3.0/1.0)
+|   Cooling_Unit_Power_Consumption(kW) = '(0.835-inf)': Reduce AHU (0.0)
+Chiller_Usage(%) = '(56.318195-74.858838]'
+|   Cooling_Unit_Power_Consumption(kW) = '(-inf-0.685]'
+|   |   Temperature_Deviation(Â°C) = '(-inf-1.255]'
+|   |   |   AHU_Usage(%) = '(-inf-45.233342]': Eco Mode (2.0)
+|   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Boost All (2.0)
+|   |   |   AHU_Usage(%) = '(50.776129-inf)': Eco Mode (0.0)
+|   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Boost All (1.0)
+|   |   Temperature_Deviation(Â°C) = '(2.795-inf)': Maintain (9.0/5.0)
+|   Cooling_Unit_Power_Consumption(kW) = '(0.685-0.835]'
+|   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Boost All (72.0/45.0)
+|   |   Temperature_Deviation(Â°C) = '(1.255-2.795]'
+|   |   |   Ambient_Temperature(Â°C) = '(-inf-22.725951]'
+|   |   |   |   Server_Workload(%) = '(-inf-56.370906]': Eco Mode (3.0/1.0)
+|   |   |   |   Server_Workload(%) = '(56.370906-74.470491]'
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Reduce AHU (4.0/2.0)
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Boost All (10.0/4.0)
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)'
+|   |   |   |   |   |   AHU_Usage(%) = '(-inf-45.233342]': Boost All (8.0/5.0)
+|   |   |   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Reduce AHU (3.0/1.0)
+|   |   |   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Reduce AHU (0.0)
+|   |   |   |   Server_Workload(%) = '(74.470491-inf)'
+|   |   |   |   |   AHU_Usage(%) = '(-inf-45.233342]': Increase Chiller (5.0/2.0)
+|   |   |   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Eco Mode (3.0)
+|   |   |   |   |   AHU_Usage(%) = '(50.776129-inf)': Eco Mode (0.0)
+|   |   |   Ambient_Temperature(Â°C) = '(22.725951-25.236509]': Reduce AHU (1.0)
+|   |   |   Ambient_Temperature(Â°C) = '(25.236509-inf)'
+|   |   |   |   Inlet_Temperature(Â°C) = '(-inf-20.600247]': Maintain (10.0/5.0)
+|   |   |   |   Inlet_Temperature(Â°C) = '(20.600247-22.497571]'
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Boost All (5.0/2.0)
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Eco Mode (8.0/5.0)
+|   |   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Eco Mode (3.0/1.0)
+|   |   |   |   Inlet_Temperature(Â°C) = '(22.497571-inf)': Boost All (6.0/4.0)
+|   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   AHU_Usage(%) = '(-inf-45.233342]': Eco Mode (23.0/16.0)
+|   |   |   AHU_Usage(%) = '(45.233342-50.776129]': Eco Mode (4.0/2.0)
+|   |   |   AHU_Usage(%) = '(50.776129-inf)': Reduce AHU (30.0/20.0)
+|   Cooling_Unit_Power_Consumption(kW) = '(0.835-inf)'
+|   |   Temperature_Deviation(Â°C) = '(-inf-1.255]'
+|   |   |   Server_Workload(%) = '(-inf-56.370906]': Reduce AHU (0.0)
+|   |   |   Server_Workload(%) = '(56.370906-74.470491]': Reduce AHU (2.0/1.0)
+|   |   |   Server_Workload(%) = '(74.470491-inf)': Boost All (4.0/2.0)
+|   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Increase Chiller (8.0/4.0)
+|   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   Inlet_Temperature(Â°C) = '(-inf-20.600247]': Reduce AHU (0.0)
+|   |   |   Inlet_Temperature(Â°C) = '(20.600247-22.497571]': Reduce AHU (5.0/2.0)
+|   |   |   Inlet_Temperature(Â°C) = '(22.497571-inf)': Eco Mode (2.0/1.0)
+Chiller_Usage(%) = '(74.858838-inf)'
+|   Inlet_Temperature(Â°C) = '(-inf-20.600247]': Eco Mode (2.0/1.0)
+|   Inlet_Temperature(Â°C) = '(20.600247-22.497571]'
+|   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Reduce AHU (7.0/4.0)
+|   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Eco Mode (25.0/15.0)
+|   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Increase Chiller (3.0)
+|   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Eco Mode (10.0/6.0)
+|   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Boost All (4.0/2.0)
+|   Inlet_Temperature(Â°C) = '(22.497571-inf)'
+|   |   AHU_Usage(%) = '(-inf-45.233342]'
+|   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]'
+|   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Eco Mode (0.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Maintain (4.0/1.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Eco Mode (14.0/8.0)
+|   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Eco Mode (17.0/10.0)
+|   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)'
+|   |   |   |   Cooling_Unit_Power_Consumption(kW) = '(-inf-0.685]': Increase Chiller (0.0)
+|   |   |   |   Cooling_Unit_Power_Consumption(kW) = '(0.685-0.835]': Eco Mode (7.0/4.0)
+|   |   |   |   Cooling_Unit_Power_Consumption(kW) = '(0.835-inf)': Increase Chiller (25.0/15.0)
+|   |   AHU_Usage(%) = '(45.233342-50.776129]': Maintain (54.0/34.0)
+|   |   AHU_Usage(%) = '(50.776129-inf)'
+|   |   |   Ambient_Temperature(Â°C) = '(-inf-22.725951]': Boost All (0.0)
+|   |   |   Ambient_Temperature(Â°C) = '(22.725951-25.236509]'
+|   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Maintain (0.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]': Reduce AHU (2.0/1.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)': Maintain (8.0/4.0)
+|   |   |   Ambient_Temperature(Â°C) = '(25.236509-inf)'
+|   |   |   |   Outlet_Temperature(Â°C) = '(-inf-25.187703]': Boost All (3.0/1.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(25.187703-27.789912]'
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Boost All (0.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Maintain (9.0/6.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)': Boost All (5.0/2.0)
+|   |   |   |   Outlet_Temperature(Â°C) = '(27.789912-inf)'
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(-inf-1.255]': Increase Chiller (1.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(1.255-2.795]': Boost All (14.0/8.0)
+|   |   |   |   |   Temperature_Deviation(Â°C) = '(2.795-inf)': Eco Mode (21.0/14.0)
+
+Number of Leaves  : 	85
+
+Size of the tree : 	127
+
+
+Time taken to build model: 0.01 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         172               24.5714 %
+Incorrectly Classified Instances       528               75.4286 %
+Kappa statistic                          0.053 
+Mean absolute error                      0.3201
+Root mean squared error                  0.4333
+Relative absolute error                100.1551 %
+Root relative squared error            108.3908 %
+Total Number of Instances              700     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.257    0.220    0.220      0.257    0.237      0.035    0.506     0.196     Reduce AHU
+                 0.283    0.204    0.266      0.283    0.274      0.077    0.485     0.228     Eco Mode
+                 0.318    0.260    0.262      0.318    0.287      0.055    0.497     0.226     Boost All
+                 0.191    0.147    0.239      0.191    0.212      0.048    0.519     0.199     Maintain
+                 0.159    0.117    0.230      0.159    0.188      0.049    0.472     0.171     Increase Chiller
+Weighted Avg.    0.246    0.193    0.244      0.246    0.242      0.053    0.496     0.206     
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e   <-- classified as
+ 35 30 43 14 14 |  a = Reduce AHU
+ 28 41 36 23 17 |  b = Eco Mode
+ 38 30 50 23 16 |  c = Boost All
+ 33 25 32 26 20 |  d = Maintain
+ 25 28 30 23 20 |  e = Increase Chiller
+
+
+
+
+
+
+
+
