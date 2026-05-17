@@ -1,74 +1,127 @@
 # Data Center Cooling System Analysis
 
-基于 Weka 的数据中心冷源系统关联规则挖掘与决策树分类分析。
+Association rule mining and decision tree classification for optimizing cooling strategies in a data center environment, built with **Weka** and visualized with **Python**.
 
-## 项目概述
+## Overview
 
-利用 **Apriori 算法**挖掘冷却策略与运行参数之间的关联规则，使用 **J48 决策树**对冷却策略进行分类预测，并对比两种建模方法（训练集+独立测试集 vs 10 折交叉检验）的性能。
+This project analyzes 700 operational records from a data center cold-source control system using two complementary data mining approaches:
 
-### 数据集特征
+- **Apriori Algorithm** — discover association rules between cooling parameters and system behavior (confidence 93–99%)
+- **J48 Decision Tree** — classify cooling strategy actions and compare two evaluation methods (hold-out vs. 10-fold cross-validation)
 
-| 特征 | 说明 |
-|---|---|
-| Server_Workload(%) | 服务器负载 |
-| Inlet_Temperature(°C) | 进风温度 |
-| Outlet_Temperature(°C) | 出风温度 |
-| Ambient_Temperature(°C) | 环境温度 |
-| Cooling_Unit_Power_Consumption(kW) | 冷却单元功耗 |
-| Chiller_Usage(%) | 冷水机使用率 |
-| AHU_Usage(%) | 空调箱使用率 |
-| Temperature_Deviation(°C) | 温度偏差 |
-| Cooling_Strategy_Action | 冷却策略动作（目标变量） |
+### Key Insight
 
-- **实例数**：700
-- **目标类别**：Reduce AHU、Eco Mode、Boost All、Maintain、Increase Chiller
+The Apriori analysis revealed that ambient temperature in the range **22.73–25.24°C** yields optimal system stability, with temperature deviation staying below **1.255°C** at **99% confidence** (Lift = 2.97). This provides a data-driven basis for setting operational temperature thresholds.
 
-## 目录结构
+## Dataset
+
+| Attribute | Description | Unit |
+|---|---|---|
+| Server_Workload | Server load | % |
+| Inlet_Temperature | Inlet air temperature | °C |
+| Outlet_Temperature | Outlet air temperature | °C |
+| Ambient_Temperature | Ambient temperature | °C |
+| Cooling_Unit_Power_Consumption | Cooling unit power draw | kW |
+| Chiller_Usage | Chiller utilization rate | % |
+| AHU_Usage | Air handling unit utilization | % |
+| Temperature_Deviation | Temperature deviation | °C |
+| Cooling_Strategy_Action | Cooling strategy (target) | class |
+
+- **Instances**: 700
+- **Target classes** (5): `Reduce AHU`, `Eco Mode`, `Boost All`, `Maintain`, `Increase Chiller`
+- **Preprocessing**: 3-bin discretization (precision 6), 3 irrelevant attributes removed, 80/20 train-test split
+
+## Project Structure
 
 ```
-├── code/                 # 代码
-│   └── analysis.ipynb    # Jupyter 分析脚本（可视化图表）
-├── models/               # 训练好的模型
-│   └── 决策树模型结果.model
-├── results/              # 运行结果（文本）
-│   ├── Apriori算法结果.txt
-│   └── 决策树两种方法的运行结果.txt
-├── docs/                 # 文档
-│   ├── report.docx
+├── code/                          # Source code
+│   └── analysis.ipynb             # Jupyter notebook with 16 visualizations
+├── models/                        # Trained models
+│   └── 决策树模型结果.model         # J48 pruned tree (127 nodes, 85 leaves)
+├── results/                       # Raw output
+│   ├── Apriori算法结果.txt          # Apriori full output (10 best rules)
+│   └── 决策树两种方法的运行结果.txt   # Decision tree evaluation output
+├── docs/                          # Documentation
+│   ├── report.doc                 # Full experiment report (Chinese)
 │   ├── Apriori算法分析参考.doc
 │   ├── 决策树分析参考.doc
 │   └── 模型选定.doc
-├── images/               # 图表（按实验阶段分类）
-│   ├── apriori/          # Apriori 参数配置与结果
-│   ├── decision-tree/    # J48 配置与原始数据分布
-│   ├── cross-validation/ # 10 折交叉检验结果
-│   ├── data-split/       # 训练/测试集分割
-│   ├── evaluation/       # 独立测试集评估
-│   └── tables/           # 输出数据表
-└── archive/              # 归档
+├── images/                        # Figures organized by experiment stage
+│   ├── apriori/                   # Apriori parameter config & results
+│   ├── decision-tree/             # J48 config & data distribution
+│   ├── cross-validation/          # 10-fold CV results
+│   ├── data-split/                # Train/test split screenshots
+│   ├── evaluation/                # Independent test set evaluation
+│   └── tables/                    # Output data tables
+└── archive/                       # Archived files
     └── report.zip
 ```
 
-## 主要结果
+## Results
 
-### Apriori 关联规则（Top 10，最小支持度 0.25，最小置信度 0.9）
+### Apriori Association Rules
 
-关键发现：
-- 环境温度 22.73-25.24°C 时，温度偏差稳定在 1.255°C 以内（**置信度 99%，Lift 2.97**）
-- 高负载+高功耗场景下冷水机使用率显著上升（置信度 95-98%）
-- 低负载+低功耗场景下冷水机需求降低（置信度 94-97%）
+Top 10 rules discovered (min support = 0.25, min confidence = 0.90):
 
-### 决策树分类
+| Rank | Antecedent | Consequent | Confidence | Lift |
+|------|-----------|------------|------------|------|
+| 1 | Ambient Temp 22.73–25.24°C | Temp Deviation < 1.255°C | **0.99** | 2.97 |
+| 2 | Temp Deviation < 1.255°C | Ambient Temp 22.73–25.24°C | **0.99** | 2.97 |
+| 3 | Inlet Temp > 22.50°C ∧ Power > 0.835kW | Chiller Usage > 74.86% | **0.98** | 2.91 |
+| 4 | Load < 56.37% ∧ Power < 0.685kW | Chiller Usage < 56.32% | **0.97** | 2.94 |
+| 5 | Load > 74.47% ∧ Chiller > 74.86% | Power > 0.835kW | **0.96** | 2.81 |
+| 6 | Inlet Temp > 22.50°C ∧ Chiller > 74.86% | Power > 0.835kW | **0.95** | 2.79 |
+| 7 | Load > 74.47% ∧ Power > 0.835kW | Chiller Usage > 74.86% | **0.95** | 2.83 |
+| 8 | Power < 0.685kW | Chiller Usage < 56.32% | **0.94** | 2.83 |
+| 9 | Load < 56.37% ∧ Chiller < 56.32% | Power < 0.685kW | **0.94** | 2.88 |
+| 10 | Chiller Usage > 74.86% | Power > 0.835kW | **0.93** | 2.72 |
 
-| 方法 | 正确率 | Kappa |
+**Three key patterns identified**:
+1. **Optimal temperature window** (Rules 1–2): Bidirectional strong association between ambient 22.73–25.24°C and deviation < 1.255°C
+2. **High-load cooling chain** (Rules 3, 5–7, 10): Elevated load/temperature → high power → high chiller usage
+3. **Low-load energy-saving chain** (Rules 4, 8–9): Sub-56% load → low power → reduced chiller demand
+
+### J48 Decision Tree
+
+| Evaluation Method | Accuracy | Kappa | F-Measure (weighted) |
+|---|---|---|---|
+| Train/Test split (80/20) | 21.29% | 0.016 | 0.208 |
+| 10-fold Cross-Validation | 24.57% | 0.053 | 0.242 |
+
+Tree size: **127 nodes, 85 leaves**. Root split on `Chiller_Usage(%)`.
+
+The low classification accuracy indicates strong non-linear relationships between numeric parameters and discrete cooling strategies — in this domain, association rule mining provides significantly higher business value than classification.
+
+### Model Comparison
+
+| Dimension | Apriori | J48 Decision Tree |
 |---|---|---|
-| 训练集训练 + 独立测试集评估 | 21.29% | 0.016 |
-| 10 折交叉检验 | 24.57% | 0.053 |
+| Prediction Accuracy | N/A (unsupervised) | 21–25% |
+| Interpretability | **High** (explicit rules) | Medium (85-leaf tree) |
+| Business Insight Value | **High** (actionable) | Low |
+| Computational Cost | 15 iterations | 0.01–0.02 sec |
 
-决策树分类准确率较低，表明冷却策略与数值型运行参数之间存在较强的非线性关系，关联规则分析在实际业务洞察方面更具价值。
+## Visualizations
 
-## 工具与环境
+The Jupyter notebook (`code/analysis.ipynb`) generates 16 figures across 4 chart panels:
 
-- **Weka 3.x**：数据挖掘与机器学习
-- **Python 3** + Jupyter Notebook：可视化分析（matplotlib, seaborn, pandas, numpy）
-- 使用离散化预处理（3-bin, precision 6）
+- **Model comparison**: radar charts, bar charts of accuracy vs. business value
+- **Rule quality**: confidence/lift/support metrics, rule ranking by business importance
+- **Parameter correlation**: scatter plots of load vs. power, temperature-stability relationships, chiller-power correlation heatmap
+- **Threshold analysis**: sensitivity curves for temperature thresholds, load-range energy comparison, pre/post rule implementation comparison
+
+## Tools & Environment
+
+| Tool | Purpose |
+|---|---|
+| Weka 3.x | Apriori & J48 modeling |
+| Python 3.13 | Visualization & analysis |
+| Jupyter Notebook | Interactive development |
+| matplotlib, seaborn | Charting & heatmaps |
+| pandas, numpy | Data manipulation |
+
+## References
+
+- Agrawal, R. & Srikant, R. (1994). *Fast Algorithms for Mining Association Rules*. VLDB.
+- Quinlan, J. R. (1993). *C4.5: Programs for Machine Learning*. Morgan Kaufmann.
+- Witten, I. H., Frank, E., & Hall, M. A. (2011). *Data Mining: Practical Machine Learning Tools and Techniques*. Morgan Kaufmann.
